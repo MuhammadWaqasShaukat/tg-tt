@@ -1,5 +1,4 @@
 import React from "react";
-import Loader from "../Loader";
 import { ButtonProps } from "@/types/Buttons.t";
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,12 +15,14 @@ const Button: React.FC<ButtonProps> = ({
   onMouseLeave,
   onFocus,
   onBlur,
+ ...rest 
 }) => {
   return (
     <button
+    {...rest}
       data-accent={acent}
       type={type}
-      className={`btn w-full ${className}`}
+      className={`${className} btn w-full`}
       style={style}
       onClick={onClick}
       disabled={disabled}
@@ -31,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
       onBlur={onBlur}
       aria-label={ariaLabel}
     >
-      {loading ? <Loader /> : children}
+      {loading ? <></> : children}
     </button>
   );
 };

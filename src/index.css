@@ -1,3 +1,8 @@
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import "swiper/css/scrollbar";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,16 +18,20 @@
 }
 
 @layer base {
- 
   body {
-    @apply text-[2.5vw] font-pineapple-days text-brown;
+    @apply font-pineapple-days text-brown text-[3.86vw] sm:text-[16px];
   }
+}
+
+body {
+  box-sizing: border-box;
 }
 
 .guide,
 .guide * {
   outline: 1px solid red;
 }
+
 .image-box {
   box-shadow: 0px 1px 3px -1px #0000000d, 0px 2px 10px 0px #32325d1a;
 }
@@ -31,12 +40,24 @@
   height: inherit;
 }
 
+.shadow-custom-4 {
+  box-shadow: 0px 2px 16px 0px #00000029;
+}
+
 .shadow-custom {
   box-shadow: 0px 5px 10px 0px #0000000d, 0px 10px 25px 0px #32325d1a;
 }
 
 .shadow-custom-2 {
   box-shadow: 0px 2px 5px 0px #0000000a, 0px 5px 15px 0px #32325d1a;
+}
+
+.shadow-custom-3 {
+  box-shadow: 0px 5px 15px 0px #00000012, 0px 15px 35px 0px #32325d1a;
+}
+
+.shadow-custom-4 {
+  box-shadow: 1px -8px 12.3px 0px #00000040;
 }
 
 .modal-radial-gradient {
@@ -49,32 +70,150 @@
   );
 }
 
+.swiper-radial-gradient {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) -2.05%,
+    #ffffff 46.93%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+
+.gradient-1 {
+  border: 2px solid transparent;
+  background: linear-gradient(#fff4db, #fff4db) padding-box,
+    linear-gradient(90deg, #ceaca7 0%, #c9e773 100%) border-box;
+}
+
+[data-is-tour-active="true"] button {
+  pointer-events: none !important;
+}
+
+[data-is-tour-active="true"] [data-tour-step].is-active {
+  pointer-events: auto !important;
+  touch-action: auto !important;
+}
+[data-is-tour-active="true"] [data-navigation="true"] {
+  pointer-events: all !important;
+}
+
+.blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 1) 90%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 1) 90%
+  );
+}
+
+/* Swiper classes */
+
+.swiper-pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-pagination-bullet {
+  opacity: 1;
+}
+
+.custom-bullet {
+  background-color: #ededed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: block;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #fec94a;
+  width: 24px;
+  /* Increased width */
+  height: 8px;
+  /* Keep height the same */
+  border-radius: 9999px;
+  /* Ensures pill shape */
+  transition: all 0.3s ease-in-out;
+}
+
+.swiper-slide {
+  opacity: 0.32;
+}
+
+.swiper-slide-active {
+  opacity: 1;
+}
+
+/* end */
+
 @layer components {
   @layer components {
     .btn {
-      @apply font-normal text-xl text-center py-4 px-[5px] rounded-2xl;
+      @apply font-normal text-center py-4 px-[5px] rounded-xl opacity-100;
     }
 
-    [data-accent="green"].btn {
-      @apply bg-green hover:bg-green;
+    .table-header-title {
+      @apply text-base font-bold tracking-tighter capitalize font-josefin text-light-brown;
     }
 
-    [data-accent="blue"].btn {
+    [data-accent="green"].btn,
+    [data-accent="green"].pill-button {
+      @apply bg-green hover:bg-green disabled:opacity-30;
+    }
+
+    [data-accent="green"].btn,
+    [data-accent="blue"].btn,
+    [data-accent="red"].btn,
+    [data-accent="yellow"].btn,
+    [data-accent="brown"].btn {
+      @apply disabled:opacity-50;
+    }
+
+    [data-accent="blue"].btn,
+    [data-accent="blue"].pill-button {
       @apply bg-blue hover:bg-blue;
     }
 
-    [data-accent="red"].btn {
+    [data-accent="red"].btn,
+    [data-accent="red"].pill-button {
       @apply bg-red hover:bg-red;
     }
 
-    [data-accent="yellow"].btn {
+    [data-accent="yellow"].btn,
+    [data-accent="yellow"].pill-button {
       @apply bg-yellow hover:bg-yellow;
     }
 
-    [data-accent="brown"].btn {
+    [data-accent="brown"].btn,
+    [data-accent="brown"].pill-button {
       @apply bg-[#F0DAD2];
     }
-    [data-accent="ghost"].btn {
+
+    [data-accent="brown"].pill-2 {
+      @apply bg-[#FFEEE4];
+    }
+
+    [data-accent="grey"].pill-2 {
+      @apply bg-[#747474];
+    }
+
+    [data-accent="ghost"].btn,
+    [data-accent="ghost"].pill-button {
       @apply bg-transparent;
     }
 
@@ -111,14 +250,54 @@
       background-size: cover;
     }
 
+    .bg-loading-screen {
+      background: linear-gradient(
+          180deg,
+          rgba(255, 238, 228, 0) 60%,
+          #ffeee4 100%
+        ),
+        url("./images/loading-screen-bg.png");
+      background-size: contain, cover;
+    }
+
+    .bg-room-full {
+      background: linear-gradient(
+          180deg,
+          rgba(182, 68, 59, 0.8) 0%,
+          rgba(182, 68, 59, 0.8) 100%
+        ),
+        url("./images/bg-room-full.png");
+      background-size: cover;
+    }
+
+    .bg-jail-full {
+      background: linear-gradient(
+          180deg,
+          rgba(149, 149, 149, 0.8) 0%,
+          rgba(149, 149, 149, 0.8) 100%
+        ),
+        url("./images/bg-jail-full.jpg");
+      background-size: cover;
+    }
+
+    .bg-room-full::before,
+    .bg-jail-full::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      filter: blur(3px);
+      z-index: 0;
+    }
+
     .bg-onboarding-screen-step-4 {
       /* background-size: 90%;
       background-position: center; */
     }
 
-    .btn {
+    /* .btn {
       border-radius: clamp(4px, 2vw, 16px);
-    }
+    } */
 
     .plii-2 span {
       color: inherit;
@@ -127,39 +306,325 @@
   }
 }
 
-/* Base Font Sizes */
-.c-font-xs {
-  font-size: clamp(0.75rem, 1.5vw, 0.875rem); /* 12px to 14px */
+.position {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 238, 228, 0) 0%,
+    rgba(255, 238, 228, 0.6) 100%
+  );
+  backdrop-filter: blur(1px);
 }
 
-.c-font-sm {
-  font-size: clamp(0.875rem, 2vw, 1rem); /* 14px to 16px */
+.bg-sofa,
+.bg-sofa-grey {
+  aspect-ratio: 25/27;
+  height: 25%;
+
+  max-width: 600px;
+  max-height: 648px;
+
+  bottom: 23%;
+  right: -2%;
 }
 
-.c-font-base {
-  font-size: clamp(1rem, 2.5vw, 1.125rem); /* 16px to 18px */
+/* token to claim indicator */
+
+[data-has-token="true"]::after {
+  background-image: url("./images/claimable-stash.svg");
+  background-position: center;
+  height: 1.813rem;
+  width: 1.813rem;
+  background-size: contain;
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  content: "";
+  display: block;
+  filter: drop-shadow(0px 5px 10px #00000026);
+  animation: pulse 1.5s ease-in-out infinite;
 }
 
-.c-font-lg {
-  font-size: clamp(1.125rem, 3vw, 1.25rem); /* 18px to 20px */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
 }
 
-.c-font-xl {
-  font-size: clamp(1.25rem, 3.5vw, 1.5rem); /* 20px to 24px */
+.bg-table,
+.bg-table-grey {
+  aspect-ratio: 25 / 27;
+  height: 19%;
+  max-width: 435px;
+  max-height: 524px;
+  bottom: 25%;
+  left: -10px;
 }
 
-.c-font-2xl {
-  font-size: clamp(1.5rem, 4vw, 2rem); /* 24px to 32px */
+.dropShadowFilter {
+  filter: drop-shadow(0px 5px 10px #00000026);
 }
 
-.c-font-3xl {
-  font-size: clamp(2rem, 5vw, 2.5rem); /* 32px to 40px */
+.bg-shelf,
+.bg-shelf-grey {
+  aspect-ratio: 384/295;
+  height: 10%;
+
+  max-width: 384px;
+  max-height: 295px;
+
+  top: 37%;
+  right: 0;
 }
 
-.c-font-4xl {
-  font-size: clamp(2.5rem, 6vw, 3rem); /* 40px to 48px */
+.scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
-.c-font-5xl {
-  font-size: clamp(3rem, 7vw, 4rem); /* 48px to 64px */
+/* Hide scrollbar for Firefox */
+.scroll-container {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Edge */
+.scroll-container {
+  -ms-overflow-style: none;
+}
+
+/* Ensure the content is still scrollable */
+.scroll-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.congrats-screen-bg {
+  background-image: url("./images/congrats.gif");
+  background-size: cover;
+  background-position: center;
+}
+
+[data-league-level].bg,
+[data-loot-withdrawal].bg {
+  background-blend-mode: soft-light;
+}
+
+/* Telegram icon as bg */
+
+.bg-icon-tg {
+  background: url("./icons/tg.svg") center/cover no-repeat,
+    linear-gradient(#ffffff, #ffffff);
+}
+
+/* not paid upgrade */
+
+[data-upgrade-type="not-paid"][data-league-level="pickpocket"].bg {
+  background: url("./images/avatars/pickpocket.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-league-level="pros"].bg {
+  background: url("./images/avatars/pros.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-league-level="robber"].bg {
+  background: url("./images/avatars/robber.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-league-level="swindler"].bg {
+  background: url("./images/avatars/swindler.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-league-level="virtuoso"].bg {
+  background: url("./images/avatars/virtuoso.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-league-level="burglar"].bg {
+  background: url("./images/avatars/burglar.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-league-level="masters"].bg {
+  background: url("./images/avatars/masters.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-league-level="bandit"].bg {
+  background: url("./images/avatars/bandit.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-league-level="heisters"].bg {
+  background: url("./images/avatars/heisters.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-league-level="legendary"].bg {
+  background: url("./images/avatars/legendary.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+[data-upgrade-type="not-paid"][data-loot-withdrawal="vault"].bg {
+  background: url("./images/vault-withdrawal.svg") bottom/contain no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, #c9e773;
+}
+
+/* paid upgrade */
+
+[data-upgrade-type="paid"][data-league-level="pickpocket"].bg {
+  background: url("./images/avatars/pickpocket.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-league-level="pros"].bg {
+  background: url("./images/avatars/pros.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-league-level="robber"].bg {
+  background: url("./images/avatars/robber.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-league-level="swindler"].bg {
+  background: url("./images/avatars/swindler.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-league-level="virtuoso"].bg {
+  background: url("./images/avatars/virtuoso.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-league-level="burglar"].bg {
+  background: url("./images/avatars/burglar.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-league-level="masters"].bg {
+  background: url("./images/avatars/masters.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-league-level="bandit"].bg {
+  background: url("./images/avatars/bandit.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-league-level="heisters"].bg {
+  background: url("./images/avatars/heisters.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-league-level="legendary"].bg {
+  background: url("./images/avatars/legendary.svg") center/cover no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-upgrade-type="paid"][data-loot-withdrawal="vault"].bg {
+  background: url("./images/vault-withdrawal.svg") bottom/contain no-repeat,
+    url("./images/congrats.gif") center/cover no-repeat, rgba(254, 201, 74, 1);
+}
+
+[data-league-withdraw] {
+  width: 100%;
+  height: 100%;
+}
+
+[data-league-withdraw="pickpocket"] {
+  background: url("./images/avatars/pickpocket-withdraw.svg") bottom/contain
+    no-repeat;
+}
+
+[data-league-withdraw="pros"] {
+  background: url("./images/avatars/pros-withdraw.svg") bottom/contain no-repeat;
+}
+
+[data-league-withdraw="robber"] {
+  background: url("./images/avatars/robber-withdraw.svg") bottom/contain
+    no-repeat;
+}
+
+[data-league-withdraw="swindler"] {
+  background: url("./images/avatars/swindler-withdraw.svg") bottom/contain
+    no-repeat;
+}
+
+[data-league-withdraw="virtuoso"] {
+  background: url("./images/avatars/virtuoso-withdraw.svg") bottom/contain
+    no-repeat;
+}
+
+[data-league-withdraw="burglar"] {
+  background: url("./images/avatars/burglar-withdraw.svg") bottom/contain
+    no-repeat;
+}
+
+[data-league-withdraw="masters"] {
+  background: url("./images/avatars/masters-withdraw.svg") bottom/contain
+    no-repeat;
+}
+
+[data-league-withdraw="bandit"] {
+  background: url("./images/avatars/bandit-withdraw.svg") bottom/contain
+    no-repeat;
+}
+
+[data-league-withdraw="heisters"] {
+  background: url("./images/avatars/heisters-withdraw.svg") bottom/contain
+    no-repeat;
+}
+
+[data-league-withdraw="legendary"] {
+  background: url("./images/avatars/legendary-withdraw.svg") bottom/contain
+    no-repeat;
+}
+
+.blob {
+  border-radius: 45% 45% 41% 59% / 45% 45% 56% 53%;
+}
+
+.Toastify__toast {
+  background: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: auto !important;
+}
+
+.Toastify__toast-body {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.text-outline {
+  text-shadow: 1px 0 0 #fcb200, -1px 0 0 #fcb200, 0 1px 0 #fcb200,
+    0 -1px 0 #fcb200, /* Radius 2 */ 2px 0 0 #fcb200, -2px 0 0 #fcb200,
+    0 2px 0 #fcb200, 0 -2px 0 #fcb200, 1px 1px 0 #fcb200, -1px -1px 0 #fcb200,
+    1px -1px 0 #fcb200, -1px 1px 0 #fcb200, /* Radius 3–4 */ 3px 0 0 #fcb200,
+    -3px 0 0 #fcb200, 0 3px 0 #fcb200, 0 -3px 0 #fcb200, 2px 1px 0 #fcb200,
+    -2px -1px 0 #fcb200, 1px 2px 0 #fcb200, -1px -2px 0 #fcb200,
+    2px -1px 0 #fcb200, -2px 1px 0 #fcb200, 1px -2px 0 #fcb200,
+    -1px 2px 0 #fcb200, /* Radius 5–6 */ 4px 0 0 #fcb200, -4px 0 0 #fcb200,
+    0 4px 0 #fcb200, 0 -4px 0 #fcb200, 3px 2px 0 #fcb200, -3px -2px 0 #fcb200,
+    2px 3px 0 #fcb200, -2px -3px 0 #fcb200, 3px -2px 0 #fcb200,
+    -3px 2px 0 #fcb200, 2px -3px 0 #fcb200, -2px 3px 0 #fcb200,
+    /* Outer edge at 6px */ 5px 0 0 #fcb200, -5px 0 0 #fcb200, 0 5px 0 #fcb200,
+    0 -5px 0 #fcb200, 4px 3px 0 #fcb200, -4px -3px 0 #fcb200, 3px 4px 0 #fcb200,
+    -3px -4px 0 #fcb200, 4px -3px 0 #fcb200, -4px 3px 0 #fcb200,
+    3px -4px 0 #fcb200, -3px 4px 0 #fcb200,
+    /* Fill diagonals at radius 6 */ 4px 4px 0 #fcb200, -4px -4px 0 #fcb200,
+    4px -4px 0 #fcb200, -4px 4px 0 #fcb200, 5px 2px 0 #fcb200,
+    -5px -2px 0 #fcb200, 2px 5px 0 #fcb200, -2px -5px 0 #fcb200,
+    5px -2px 0 #fcb200, -5px 2px 0 #fcb200, 2px -5px 0 #fcb200,
+    -2px 5px 0 #fcb200;
 }

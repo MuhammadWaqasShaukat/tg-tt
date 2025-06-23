@@ -1,28 +1,43 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import App from "./App.tsx";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useRecoilValue } from "recoil";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Onboarding from "./pages/OnBoarding/index.tsx";
+import { userState } from "./store/User.ts";
 
+const router = createBrowserRouter([
+  { path: "/", element: <App /> },
+  {
+    path: "/auth",
+    element: <Onboarding />,
+  },
+]);
 
-import { miniApp } from '@telegram-apps/sdk';
+const queryClient = new QueryClient();
 
-async function initializeApp() {
-  try {
-    await miniApp.mount();
-    console.log('Mini App mounted successfully');
-  } catch (error) {
-    console.error('Failed to mount Mini App:', error);
-  }
-}
-// Initialize SDK
-initializeApp();
-
+const AppWrapper = () => {
+  const user = useRecoilValue(userState);
+  return (
+    <div
+      data-is-tour-active={user?.tutorial ? "true" : "false"}
+      className={`${user?.inPrisonUntil ? "bg-jail-full" : "bg-room-full"} `}
+    >
+      <div id="token-thieves-miniapp" className="sm:max-w-[580px] mx-auto ">
+        <RouterProvider router={router} />
+      </div>
+    </div>
+  );
+};
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <AppWrapper />
+      </RecoilRoot>
+    </QueryClientProvider>
   </StrictMode>
 );

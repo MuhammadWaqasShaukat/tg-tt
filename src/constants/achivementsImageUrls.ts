@@ -5,6 +5,6 @@ export const AchivementImageURLS = {
   sloppy: "./images/sloppy-achievement.svg",
   wanted: "./images/wanted-achievement.svg",
   sleepy: "./images/sleepy-achievement.svg",
-  cautions: "./images/cautions-achievement.svg",
+  cautious: "./images/cautions-achievement.svg",
   rich: "./images/rich-achievement.svg",
 };

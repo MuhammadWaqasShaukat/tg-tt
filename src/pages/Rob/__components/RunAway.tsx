@@ -1,99 +1,81 @@
 import ImageBox from "@/components/UI/ImageBox";
 import IconButton from "@/components/UI/Buttons/IconButton";
-import { Button } from "@/components/UI/Buttons";
-import { useRecoilState } from "recoil";
-import { robStepState } from "@/store/robFlow";
+import { LeagueAssests } from "@/constants/leagues";
+import useGetRobVictimLeague from "@/hooks/useGetRobVictimLeague";
+import { useRecoilValue } from "recoil";
+import { inProgressRobberyState } from "@/store/inProgressRobbery";
+import { stolenAmountState } from "@/store/stolenAmount";
+import { localizationState } from "@/store/localizations";
+import { getFormatedText } from "@/utils/getFormatedText";
+import ImprovedAchievement from "@/components/UI/ImprovedAchievement";
+import { formatCompactNumber } from "@/utils/formatNumber";
 
 const RunAway = () => {
-  const [, setRobStep] = useRecoilState(robStepState);
+  const { getVictimLeague } = useGetRobVictimLeague();
+  const victimLeague = getVictimLeague();
+  const inProgressRobbery = useRecoilValue(inProgressRobberyState);
+  const stolenAmount = useRecoilValue(stolenAmountState);
+  const localization = useRecoilValue(localizationState);
 
   return (
-    <>
-      <div className=" flex flex-col justify-start items-start gap-6 mt-[6%] w-full px-6 ">
-        <div className="  flex-col flex justify-center items-center rounded-2xl p-2 w-full">
-          <div className="relative">
-            <ImageBox className=" h-[10.71vh] w-[23.18vw]" />
-            <IconButton
-              acent="green"
-              className="!aspect-square absolute -top-4 -right-4"
-              onClick={() => {}}
-            >
-              <div className="bg bg-icon-checked h-5 w-5"></div>
-            </IconButton>
-          </div>
-          <div className=" flex flex-col justify-center items-center">
-            <div className=" flex flex-row justify-start items-center gap-2">
-              <div className="bg bg-chip-loot h-[6.25vh] w-[13.5vw]"></div>
-              <p className=" text-[5em]">4.4k</p>
-            </div>
-            <p>
-              <span className=" font-medium font-josefin text-[1.75em] -tracking-tight">
-                Stolen out of
-              </span>
-              <span className=" font-josefin font-bold text-[1.75em] -tracking-tighter">
-                40K
-              </span>
-            </p>
-          </div>
+    <div className="flex flex-col items-start justify-start w-full gap-6 ">
+      <div className="flex flex-col items-center justify-center w-full p-2 rounded-2xl">
+        <div className="relative">
+          <ImageBox
+            className="w-[34.8vw] aspect-square max-h-36 max-w-36 overflow-hidden !rounded-3xl"
+            imageURL={LeagueAssests[victimLeague.league].face}
+            imageSize="w-[34.8vw] aspect-square max-h-36 max-w-36"
+          />
+          <IconButton
+            acent="green"
+            className="!aspect-square absolute -top-4 -right-4 rounded-lg  size-10"
+            onClick={() => {}}
+          >
+            <div className="size-5 bg bg-icon-checked"></div>
+          </IconButton>
         </div>
-
-        <div className="h-[1px] bg-[#CEACA7] w-full"></div>
-        <p className="text-[2em] tracking-tight font-josefin text-light-brown">
-          Improved achievements
-        </p>
-        <div className=" flex flex-col justify-start items-start w-full gap-2">
-          <div className=" flex flex-row justify-between items-center w-full">
-            <div className=" flex flex-row justify-start items-center gap-2">
-              <div className=" bg bg-icon-info h-4 w-5"></div>
-              <p className=" text-light-brown text-base">Sneaky</p>
-            </div>
-            <div className="ml-auto">
-              <ImageBox className=" !aspect-square" />
-            </div>
+        <div className="flex flex-col items-center justify-center ">
+          <div className="flex flex-row items-center justify-start gap-2 ">
+            <div className="bg bg-chip-loot w-[13.5vw] aspect-square max-h-14 max-w-14"></div>
+            <p className=" text-[4em]">{formatCompactNumber(stolenAmount)}</p>
           </div>
-          <div className=" flex flex-row justify-between items-center w-full">
-            <div className=" flex flex-row justify-start items-center gap-2">
-              <div className=" bg bg-icon-info h-4 w-5"></div>
-              <p className=" text-light-brown text-base">Crafty</p>
-            </div>
-            <div className="ml-auto">
-              <ImageBox className=" !aspect-square" />
-            </div>
-          </div>
-          <div className=" flex flex-row justify-between items-center w-full">
-            <div className=" flex flex-row justify-start items-center gap-2">
-              <div className=" bg bg-icon-info h-4 w-5"></div>
-              <p className=" text-light-brown text-base">Rich</p>
-            </div>
-            <div className="ml-auto">
-              <ImageBox className=" !aspect-square" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className=" bg-[#FFFBF9] w-full px-6 py-9 space-y-6 rounded-[32px] flex flex-col justify-center items-center gap-6 mt-auto min-h-[20vh]">
-        <div className=" space-y-1">
-          {/* <h1 className=" text-center capitalize text-[5em]">5m 24s</h1> */}
-          <p className="text-center text-[2em] tracking-tight font-josefin text-light-brown">
-            You successfully robbed
-            <span className=" text-brown">Simeonichki and ran away.</span>
+          <p>
+            <span className=" font-medium font-josefin text-[1.375em] -tracking-tight text-center block">
+              {getFormatedText(
+                localization["success_screen.stolen"],
+                inProgressRobbery?.goldShouldSteal.toLocaleString() || "0"
+              )}
+            </span>
           </p>
         </div>
-
-        <div className=" flex flex-row justify-between items-center gap-8 w-full ">
-          <Button
-            onClick={() => {
-              setRobStep("get-caught");
-            }}
-            acent="yellow"
-            className="shadow-custom flex flex-row justify-center items-center gap-2 mb-[14px]"
-          >
-            <span>Run Away</span>
-          </Button>
-        </div>
       </div>
-    </>
+
+      <div className="h-[1px] bg-[#CEACA7] w-full"></div>
+
+      <div className="flex flex-col items-start justify-start w-full gap-2 ">
+        <p className="text-[1.375em] tracking-tight font-josefin text-light-brown">
+          {localization["catch_thief.improved_achievement_title"]}
+        </p>
+
+        <ImprovedAchievement
+          tooltip={null}
+          localizationKey="achievements_screen.type_sneaky"
+          achievement="sneaky"
+        />
+
+        <ImprovedAchievement
+          tooltip={null}
+          localizationKey="achievements_screen.type_crafty"
+          achievement="crafty"
+        />
+
+        <ImprovedAchievement
+          tooltip={null}
+          localizationKey="achievements_screen.type_rich"
+          achievement="rich"
+        />
+      </div>
+    </div>
   );
 };
 

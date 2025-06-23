@@ -1,72 +1,65 @@
-import { Button } from "@/components/UI/Buttons";
 import IconButton from "@/components/UI/Buttons/IconButton";
+import StolenAmount from "@/components/UI/Cards/StolenAmount";
+import Divider from "@/components/UI/Divider";
 import ImageBox from "@/components/UI/ImageBox";
-import { robStepState } from "@/store/robFlow";
-import { useRecoilState } from "recoil";
+import { LeagueAssests } from "@/constants/leagues";
+import useGetRobVictimLeague from "@/hooks/useGetRobVictimLeague";
+import { inProgressRobberyState } from "@/store/inProgressRobbery";
+import { userState } from "@/store/User";
+import { LeagueNames } from "@/types/User.t";
+import { useRecoilValue } from "recoil";
+import RobberyInfo from "./RobberyInfo";
 
 const InProgress = () => {
-  const [, setRobStep] = useRecoilState(robStepState);
+  const inProgressRobbery = useRecoilValue(inProgressRobberyState);
+  const user = useRecoilValue(userState);
+  const { getVictimLeague } = useGetRobVictimLeague();
+  const victimLeague = getVictimLeague();
+  // const localization = useRecoilValue(localizationState);
+
+  const getFormatedNumber = () => {
+    if (user && user.iAmRobbing && user.iAmRobbing.goldShouldSteal) {
+      return inProgressRobbery!.goldShouldSteal.toLocaleString();
+    }
+    return 0;
+  };
 
   return (
     <>
-      <div className=" flex flex-col justify-start items-start gap-6 mt-[6%] w-full px-6 ">
-        <div className="  flex-col flex justify-center items-center rounded-2xl p-2 w-full">
+      <div className=" flex flex-col justify-start items-start gap-6 w-full ">
+        <div className="flex flex-col items-center justify-center w-full p-2 rounded-2xl">
           <div className="relative">
-            <ImageBox className=" h-[10.71vh] w-[23.18vw]" />
+            <ImageBox
+              className=" w-[23.18vw] aspect-square max-h-24 max-w-24 overflow-hidden !rounded-2xl"
+              imageURL={LeagueAssests[victimLeague.league as LeagueNames].face}
+              imageSize="w-[23.18vw] aspect-square max-h-24 max-w-24"
+            />
             <IconButton
               acent="brown"
-              className="!rounded-xl aspect-square absolute -top-4 -right-4"
+              className="!rounded-xl aspect-square absolute -top-4 -right-4 size-10"
               onClick={() => {}}
             >
-              <div className="bg bg-icon-attack h-6 w-6"></div>
+              <div className="size-6 bg bg-icon-attack"></div>
             </IconButton>
           </div>
-          <div className=" flex flex-col justify-center items-center">
-            <div className=" flex flex-row justify-start items-center gap-2">
-              <div className="bg bg-chip-loot h-[6.25vh] w-[13.5vw]"></div>
-              <p className=" text-[5em]">4.4k</p>
+          <div className="flex flex-col items-center justify-center ">
+            <div className="flex flex-row items-center justify-start gap-2 ">
+              <div className="bg bg-chip-loot w-[13.5vw] aspect-square max-h-14 max-w-14"></div>
+              <StolenAmount />
             </div>
             <p>
-              <span className=" font-medium font-josefin text-[1.75em] -tracking-tight">
+              <span className=" font-medium font-josefin text-[1.375em] -tracking-tight">
                 Stolen out of
               </span>
-              <span className=" font-josefin font-bold text-[1.75em] -tracking-tighter">
-                40K
+              &nbsp;
+              <span className=" font-josefin font-bold text-[1.375em] -tracking-tighter">
+                {getFormatedNumber()}
               </span>
             </p>
           </div>
         </div>
-
-        <div className=" flex flex-row justify-between items-center w-full">
-          <div className=" flex flex-row justify-start items-center gap-2">
-            <div className=" bg bg-icon-info h-4 w-5"></div>
-            <p className=" text-light-brown text-base">Extraction max</p>
-          </div>
-          <div className=" bg-white px-2 rounded-xl ml-auto">
-            <span className="text-base text-light-brown ">80K</span>
-          </div>
-        </div>
-      </div>
-
-      <div className=" bg-[#FFFBF9] w-full px-6 py-9 space-y-6 rounded-[32px] flex flex-col justify-center items-center gap-6 mt-auto h-[30vh]">
-        <div className=" space-y-1">
-          <h1 className=" text-center capitalize text-[5em]">5m 24s</h1>
-          <p className="text-center text-[2em] tracking-tight font-josefin text-light-brown">
-            Time till end of the robbery
-          </p>
-        </div>
-
-        <div className=" flex flex-row justify-between items-center gap-8 w-full ">
-          <Button
-            onClick={() => {
-              setRobStep("run-away");
-            }}
-            acent="yellow"
-            className="shadow-custom flex flex-row justify-center items-center gap-2 mb-[14px]"
-          >
-            <span>Run Away</span>
-          </Button>
-        </div>
+        <Divider />
+        <RobberyInfo />
       </div>
     </>
   );

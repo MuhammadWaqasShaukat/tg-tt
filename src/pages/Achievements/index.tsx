@@ -1,27 +1,35 @@
-import { View } from "@/components/UI/View";
+import { Page } from "@/components/UI/Page";
 import AchievementRow from "@/components/UI/Lists/Rows/Achievement";
 import RewardListHeader from "@/components/UI/Lists/ListHeaders/RewardListHeader";
 import { List } from "@/components/UI";
+import { useAchievementsQuery } from "@/hooks/useAchievements";
+import { AchievementRowProp } from "@/types/Achievement.t";
+import { useRecoilValue } from "recoil";
+import { localizationState } from "@/store/localizations";
+import { PageProps } from "@/types/Page.t";
 
-const Achievements = ({ onClose }: { onClose: () => void }) => {
+const Achievements: React.FC<PageProps> = ({ onClose }) => {
+  const { data: achievements } = useAchievementsQuery();
+  const localization = useRecoilValue(localizationState);
+
   return (
-    <View
+    <Page
+      allowNavigatingBack={true}
       allowSearch={false}
       backBtnClkHandler={onClose}
-      viewTitle="Achievemets"
+      viewTitle={localization["achievements_screen.title"]}
+      Sheet={null}
+      id="achievements-view"
     >
-      <List>
+      <List className="space-y-1">
         <RewardListHeader />
-        <AchievementRow type="sneaky" score={"10/20"} hasAward />
-        <AchievementRow type="crafty" score={"4/20"} hasAward />
-        <AchievementRow type="sloppy" score={"9/20"} hasAward />
-        <AchievementRow type="wanted" score={"20/20"} hasAward />
-        <AchievementRow type="sleepy" score={"0/20"} hasAward />
-        <AchievementRow type="rich" score={"1/20"} hasAward />
-        <AchievementRow type="cautions" score={"6/20"} hasAward={false} />
-        <AchievementRow type="vigilant" score={"8/20"} hasAward={false} />
+        <div className="w-full">
+          {achievements?.map((achievement: AchievementRowProp) => (
+            <AchievementRow {...achievement} key={achievement.achievementId} />
+          ))}
+        </div>
       </List>
-    </View>
+    </Page>
   );
 };
 

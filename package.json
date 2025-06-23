@@ -11,16 +11,28 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@telegram-apps/sdk": "^3.4.0",
+    "@tanstack/react-query": "^5.67.1",
+    "@tanstack/react-query-devtools": "^5.67.1",
+    "axios": "^1.8.1",
+    "date-fns": "^4.1.0",
+    "firebase": "^11.4.0",
+    "framer-motion": "^12.8.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "recoil": "^0.7.7"
+    "react-router-dom": "6",
+    "react-timer-hook": "^4.0.1",
+    "react-toastify": "^11.0.5",
+    "react-tooltip": "^5.28.1",
+    "recoil": "^0.7.7",
+    "swiper": "^11.2.4",
+    "tailwind-scrollbar": "^4.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@types/node": "^22.8.7",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "@types/swiper": "^6.0.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",

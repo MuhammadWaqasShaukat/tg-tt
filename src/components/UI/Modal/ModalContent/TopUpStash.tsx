@@ -11,18 +11,16 @@ const TopUpStash = () => {
             <div className="bg bg-chip-coin bg-center h-[100%] w-[100%] rounded-xl"></div>
           </div>
         </Pill2>
-        <div className="flex flex-col items-center justify-start w-full gap-1">
-          <div className="">
-            <p className="text-[1.6em] text-center font-josefin text-light-brown font-medium tracking-tighter">
-              <span className="font-bold ">Crowbar</span> gives you faster
-              robbing time with 35%. Instead of executing a full robbery in 20
-              min, with this item - it will take you only 13 min!
-            </p>
-          </div>
-          <Counter />
+        <div className="flex flex-col items-center justify-start w-full gap-6">
+          <p className="text-[1.6em] text-center font-josefin text-light-brown font-medium tracking-tighter leading-5">
+            <span className="font-bold ">Crowbar</span> gives you faster robbing
+            time with 35%. Instead of executing a full robbery in 20 min, with
+            this item - it will take you only 13 min!
+          </p>
+          <Counter counterType="buying" />
         </div>
       </div>
-      <Button2 acent="green" className="flex-1 w-full">
+      <Button2 acent="green" className="flex-1 w-full" buttonText="100">
         <span>Get</span>
       </Button2>
     </div>

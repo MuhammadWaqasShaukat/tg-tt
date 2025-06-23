@@ -19,7 +19,7 @@ const PillButton: React.FC<ButtonProps> = ({
     <button
       data-accent={acent}
       type={type}
-      className={`rounded-xl bg-yellow px-3 py-1 w-full text-sm ${className}`}
+      className={`pill-button rounded-xl px-3 py-1 w-full text-sm ${className}`}
       style={style}
       onClick={onClick}
       disabled={disabled}

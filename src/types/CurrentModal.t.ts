@@ -1,6 +1,6 @@
 export type CurrentModalType =
   | "loot-in-pockets"
-  | "loot-in-valut"
+  | "loot-in-vault"
   | "stamina"
   | "alarm"
   | "stash"
@@ -13,4 +13,21 @@ export type CurrentModalType =
   | "crowbar"
   | "guard-dog"
   | "huge-bag"
-  | "top-up-stash";
+  | "top-up-stash"
+  | "profile-info"
+  | "pockets-full"
+  | "sneaky"
+  | "sloppy"
+  | "crafty"
+  | "vigilant"
+  | "cautious"
+  | "sleepy"
+  | "wanted"
+  | "rich"
+  | "info";
+
+export type MoreInfoModalType =
+  | "stash"
+  | "loot-in-pockets"
+  | "invite-and-earn"
+  | null;

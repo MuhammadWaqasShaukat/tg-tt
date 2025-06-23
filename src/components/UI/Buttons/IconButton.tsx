@@ -1,6 +1,5 @@
 import React from "react";
 import { ButtonProps } from "@/types/Buttons.t";
-import Loader from "../Loader";
 
 const IconButton: React.FC<ButtonProps> = ({
   children,
@@ -16,12 +15,14 @@ const IconButton: React.FC<ButtonProps> = ({
   onMouseLeave,
   onFocus,
   onBlur,
+  ...rest 
 }) => {
   return (
     <button
+    {...rest }
       data-accent={acent}
       type={type}
-      className={`btn h-[4.6vh] w-[10.14vw] aspect-square grid place-content-center ${className}`}
+      className={`btn w-[10.14vw] max-w-[42px] max-h-[42px] aspect-square grid place-content-center ${className}`}
       style={style}
       onClick={onClick}
       disabled={disabled}
@@ -31,7 +32,7 @@ const IconButton: React.FC<ButtonProps> = ({
       onBlur={onBlur}
       aria-label={ariaLabel}
     >
-      {loading ? <Loader /> : children}
+      {loading ? <></> : children}
     </button>
   );
 };

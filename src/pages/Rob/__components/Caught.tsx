@@ -1,76 +1,65 @@
-import { Button } from "@/components/UI/Buttons";
-import LootChip from "@/components/UI/Chips/ChipLoot";
 import ImageBox from "@/components/UI/ImageBox";
-import { robStepState } from "@/store/robFlow";
-import { useRecoilState } from "recoil";
+import ImprovedAchievement from "@/components/UI/ImprovedAchievement";
+import Pill2 from "@/components/UI/Pills/Pill2";
+import { LeagueAssests } from "@/constants/leagues";
+import { localizationState } from "@/store/localizations";
+import { userState } from "@/store/User";
+import { useRecoilValue } from "recoil";
 
 const Caught = () => {
-  const [, setRobStep] = useRecoilState(robStepState);
+  const user = useRecoilValue(userState);
+  const localization = useRecoilValue(localizationState);
 
   return (
-    <>
-      <div className=" flex flex-col justify-start items-start gap-6 mt-[6%] w-full px-6 ">
-        <div className="  flex-col flex justify-center items-center rounded-2xl p-2 w-full gap-9">
-          <ImageBox className=" h-[10.71vh] w-[23.18vw]" />
-          <p className="text-[2em] tracking-tight font-josefin text-light-brown text-center">
-            You have been caught by Simeonichki! Getting caught prior the first
-            5 minutes of the robbery, results in losing some amount from your
-            robbery.
-          </p>
-        </div>
-        <div className=" flex flex-row justify-between items-center w-full">
-          <div className=" flex flex-row justify-start items-center gap-2">
-            <div className=" bg bg-icon-info h-4 w-5"></div>
-            <p className=" text-light-brown text-base">You have lost</p>
-          </div>
-          <div className="ml-auto">
-            <LootChip
-              count="30"
-              iconSize="!bg-transparent -left-2.5"
-              className="!bg-[#F88B7C] text-white text-[20px] leading-5 h-6"
-            />
-          </div>
-        </div>
-        <div className="h-[1px] bg-[#CEACA7] w-full"></div>
-        <p className="text-[2em] tracking-tight font-josefin text-light-brown">
-          Improved achievements
+    <div className="flex flex-col items-start justify-start w-full gap-6 ">
+      <div className="flex flex-col items-center justify-center w-full p-2 rounded-2xl gap-9">
+        <ImageBox
+          className="w-[34.8vw] aspect-square max-h-36 max-w-36  overflow-hidden !rounded-3xl"
+          imageSize="min-w-[115%] mt-4 -ml-2"
+          imageURL={LeagueAssests["masters"].casual}
+        />
+        <p className="text-[1.375em] tracking-tight font-josefin text-light-brown text-center leading-7">
+          You have been caught by {user?.username}! Getting caught prior the
+          first 5 minutes of the robbery, results in losing some amount from
+          your robbery.
         </p>
-        <div className=" flex flex-col justify-start items-start w-full gap-2">
-          <div className=" flex flex-row justify-between items-center w-full">
-            <div className=" flex flex-row justify-start items-center gap-2">
-              <div className=" bg bg-icon-info h-4 w-5"></div>
-              <p className=" text-light-brown text-base">Sneaky</p>
-            </div>
-            <div className="ml-auto">
-              <ImageBox className=" !aspect-square" />
-            </div>
-          </div>
-          <div className=" flex flex-row justify-between items-center w-full">
-            <div className=" flex flex-row justify-start items-center gap-2">
-              <div className=" bg bg-icon-info h-4 w-5"></div>
-              <p className=" text-light-brown text-base">sloppy</p>
-            </div>
-            <div className="ml-auto">
-              <ImageBox className=" !aspect-square" />
-            </div>
-          </div>
-        </div>
       </div>
-
-      <div className=" bg-[#FFFBF9] w-full px-6 py-9 space-y-6 rounded-[32px] flex flex-col justify-center items-center gap-6 mt-auto">
-        <div className=" flex flex-row justify-between items-center gap-8 w-full ">
-          <Button
-            onClick={() => {
-              setRobStep("run-away");
-            }}
-            acent="yellow"
-            className="shadow-custom flex flex-row justify-center items-center gap-2 mb-[14px]"
+      <div className="flex flex-row items-center justify-between w-full ">
+        <div className="flex flex-row items-center justify-start gap-2 ">
+          <div className="size-5 bg bg-icon-info"></div>
+          <p className="text-[1em] text-light-brown">You have lost</p>
+        </div>
+        <div className="ml-auto">
+          <Pill2
+            accent="red"
+            count={"30"}
+            className="text-[1em] text-white -ml-2 pl-1 z-[9] !rounded-r-md py-0.5"
           >
-            <span>Go Home</span>
-          </Button>
+            <div className="w-[5.80vw] aspect-square max-h-[38px] max-w-[38px] mx-auto flex flex-col justify-center items-center z-10 relative">
+              <div className="bg bg-chip-loot bg-center h-[100%] w-[100%] "></div>
+            </div>
+          </Pill2>
         </div>
       </div>
-    </>
+      <div className="h-[1px] bg-[#CEACA7] w-full"></div>
+
+      <div className="flex flex-col items-start justify-start w-full gap-2 ">
+        <p className="text-[1.375em] tracking-tight font-josefin text-light-brown">
+          {localization["catch_thief.improved_achievement_title"]}
+        </p>
+        <ImprovedAchievement
+          tooltip={null}
+          localizationKey="achievements_screen.type_sneaky"
+          achievement="sneaky"
+        />
+
+        <ImprovedAchievement
+          tooltip={null}
+          localizationKey="achievements_screen.type_sloppy"
+          achievement="sloppy"
+        />
+      </div>
+    </div>
   );
 };
 

@@ -1,21 +1,24 @@
+import { localizationState } from "@/store/localizations";
+import { useRecoilValue } from "recoil";
+
 const StepOne = () => {
+  const localization = useRecoilValue(localizationState);
+
   return (
-    <div className=" flex flex-col justify-end items-start flex-1 p-6 gap-6">
-      <h1 className=" text-4xl pr-4">Welcome to Token Thieves 1</h1>
-      <span className="text-[22px] font-josefin  font-medium tracking-tighter text-light-brown">
-        The most important button in the game! From here you target your victim
-        and you initiate a robbery!
-      </span>
-      <ul className="list-disc px-4">
+    <div className=" flex flex-col justify-center items-start flex-1 p-6 gap-6">
+      <h1 className=" text-[2.25em] pr-4">
+        {localization?.["tutorial_screen.welcome"]}
+      </h1>
+
+      <ul className="list-disc px-4 space-y-6">
         <li>
-          <span className="text-[22px] font-josefin  font-medium tracking-tighter text-light-brown">
-            A game where your trickery and cunning are generously rewarded!
+          <span className="text-[1.375em] font-josefin  font-medium tracking-tighter text-light-brown leading-7">
+            {localization?.["tutorial_screen.intro_one"]}
           </span>
         </li>
         <li>
-          <span className="text-[22px] font-josefin font-medium tracking-tighter text-light-brown">
-            But, you know ... in order to do so, you need to initiate a robbery
-            first. Check how it’s done!
+          <span className="text-[1.375em] font-josefin font-medium tracking-tighter text-light-brown leading-7">
+            {localization?.["tutorial_screen.intro_two"]}
           </span>
         </li>
       </ul>

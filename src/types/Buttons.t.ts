@@ -7,4 +7,12 @@ export interface ButtonProps
   size?: "small" | "medium" | "large";
   ariaLabel?: string;
   loading?: boolean;
+  [key: `data-${string}`]: any;
+}
+
+export interface ProgressBarButtonProp
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode;
+  loading?: boolean;
+  progress: number;
 }

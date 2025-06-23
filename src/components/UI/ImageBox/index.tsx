@@ -1,7 +1,7 @@
 import { ImageBoxProps } from "@/types/ImageBox.t";
 
-const ImageBox: React.FC<ImageBoxProps> = ({ className, imageURL, alt }) => {
-  const placeholderImage = "/images/pickpocket.png";
+const ImageBox: React.FC<ImageBoxProps> = ({ className, imageURL, alt , imageSize}) => {
+  const placeholderImage = "/images/avatars/pickpocket-face.svg";
 
   return (
     <div
@@ -10,7 +10,7 @@ const ImageBox: React.FC<ImageBoxProps> = ({ className, imageURL, alt }) => {
       <img
         src={imageURL ?? placeholderImage}
         alt={alt}
-        className="overflow-hidden rounded-lg"
+        className={`max-w-20 overflow-hidden rounded-lg h-full w-full ${imageSize}`}
       />
     </div>
   );
