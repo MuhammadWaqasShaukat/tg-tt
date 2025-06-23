@@ -1,0 +1,16 @@
+export type CurrentModalType =
+  | "loot-in-pockets"
+  | "loot-in-valut"
+  | "stamina"
+  | "alarm"
+  | "stash"
+  | "invite-and-earn"
+  | "fake-id"
+  | "improved-alarm"
+  | "decoy"
+  | "reinforcement-vault"
+  | "snack"
+  | "crowbar"
+  | "guard-dog"
+  | "huge-bag"
+  | "top-up-stash";

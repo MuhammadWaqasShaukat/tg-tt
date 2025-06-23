@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Pineapple Days";
+  src: url("./fonts/Pineapple_Days.ttf");
+}
+
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("./fonts/JosefinSans-VariableFont_wght.ttf");
+}
+
+@layer base {
+ 
+  body {
+    @apply text-[2.5vw] font-pineapple-days text-brown;
+  }
+}
+
+.guide,
+.guide * {
+  outline: 1px solid red;
+}
+.image-box {
+  box-shadow: 0px 1px 3px -1px #0000000d, 0px 2px 10px 0px #32325d1a;
+}
+
+.image-box img {
+  height: inherit;
+}
+
+.shadow-custom {
+  box-shadow: 0px 5px 10px 0px #0000000d, 0px 10px 25px 0px #32325d1a;
+}
+
+.shadow-custom-2 {
+  box-shadow: 0px 2px 5px 0px #0000000a, 0px 5px 15px 0px #32325d1a;
+}
+
+.modal-radial-gradient {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.32) -2.05%,
+    #ffffff 46.93%,
+    rgba(255, 255, 255, 0.32) 100%
+  );
+}
+
+@layer components {
+  @layer components {
+    .btn {
+      @apply font-normal text-xl text-center py-4 px-[5px] rounded-2xl;
+    }
+
+    [data-accent="green"].btn {
+      @apply bg-green hover:bg-green;
+    }
+
+    [data-accent="blue"].btn {
+      @apply bg-blue hover:bg-blue;
+    }
+
+    [data-accent="red"].btn {
+      @apply bg-red hover:bg-red;
+    }
+
+    [data-accent="yellow"].btn {
+      @apply bg-yellow hover:bg-yellow;
+    }
+
+    [data-accent="brown"].btn {
+      @apply bg-[#F0DAD2];
+    }
+    [data-accent="ghost"].btn {
+      @apply bg-transparent;
+    }
+
+    [data-accent="green"].btn-3,
+    [data-accent="green"].pill-2 {
+      @apply bg-green hover:bg-green;
+    }
+
+    [data-accent="blue"].pill-2 {
+      @apply bg-blue-dark;
+    }
+
+    [data-accent="red"].pill-2 {
+      @apply bg-red hover:bg-red;
+    }
+
+    .bg {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .bg-icon-star {
+      background-size: 85%;
+    }
+
+    .bg-onboarding-screen {
+      background: linear-gradient(
+          180deg,
+          rgba(255, 238, 228, 0.32) 0%,
+          #ffeee4 67.27%
+        ),
+        url("./images/onboarding.png");
+      background-size: cover;
+    }
+
+    .bg-onboarding-screen-step-4 {
+      /* background-size: 90%;
+      background-position: center; */
+    }
+
+    .btn {
+      border-radius: clamp(4px, 2vw, 16px);
+    }
+
+    .plii-2 span {
+      color: inherit;
+      font-size: inherit;
+    }
+  }
+}
+
+/* Base Font Sizes */
+.c-font-xs {
+  font-size: clamp(0.75rem, 1.5vw, 0.875rem); /* 12px to 14px */
+}
+
+.c-font-sm {
+  font-size: clamp(0.875rem, 2vw, 1rem); /* 14px to 16px */
+}
+
+.c-font-base {
+  font-size: clamp(1rem, 2.5vw, 1.125rem); /* 16px to 18px */
+}
+
+.c-font-lg {
+  font-size: clamp(1.125rem, 3vw, 1.25rem); /* 18px to 20px */
+}
+
+.c-font-xl {
+  font-size: clamp(1.25rem, 3.5vw, 1.5rem); /* 20px to 24px */
+}
+
+.c-font-2xl {
+  font-size: clamp(1.5rem, 4vw, 2rem); /* 24px to 32px */
+}
+
+.c-font-3xl {
+  font-size: clamp(2rem, 5vw, 2.5rem); /* 32px to 40px */
+}
+
+.c-font-4xl {
+  font-size: clamp(2.5rem, 6vw, 3rem); /* 40px to 48px */
+}
+
+.c-font-5xl {
+  font-size: clamp(3rem, 7vw, 4rem); /* 48px to 64px */
+}
